@@ -1,4 +1,4 @@
 -main Main
--js ../html/files/js/script.js
+-js ../docs/files/js/script.js
 -cp js
 -cp ../../../haxe/lib/
