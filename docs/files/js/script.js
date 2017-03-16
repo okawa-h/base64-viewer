@@ -20,13 +20,14 @@ Read.init = function() {
 	Read._jBtn.on("click",null,function(event) {
 		Read._jSubmit.click();
 	});
-	Read._jSubmit.on({ 'change' : Read.onChange});
+	Read._jSubmit.on({ "change" : Read.onChange});
 };
 Read.readFile = function(file) {
 	var fileReader = new FileReader();
 	fileReader.onload = function(event) {
 		Read.cancel(event);
-		Main.onRead(event.target.result);
+		var src = event.target.result;
+		Main.onRead(src);
 	};
 	fileReader.readAsDataURL(file);
 };
