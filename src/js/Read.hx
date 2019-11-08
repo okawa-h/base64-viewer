@@ -8,9 +8,9 @@ import js.jquery.Event;
 
 class Read {
 
-	private static var _jParent : JQuery;
-	private static var _jBtn    : JQuery;
-	private static var _jSubmit : JQuery;
+	private static var _jParent:JQuery;
+	private static var _jBtn:JQuery;
+	private static var _jSubmit:JQuery;
 
 	/* =======================================================================
 		Constractar
@@ -18,16 +18,14 @@ class Read {
 	public static function init():Void {
 
 		_jParent = new JQuery('#read');
-		_jBtn    = _jParent.find('.button');
+		_jBtn = _jParent.find('.button');
 		_jSubmit = _jParent.find('input[name="read-file"]');
 
-		new JQuery(Browser.window).on({ drop:onDrop, dragenter:onEnter, dragover:onOver });
+		new JQuery(Browser.window).on({ drop: onDrop, dragenter: onEnter, dragover: onOver });
 
-		_jBtn.on('click',function(event:Event) {
-			_jSubmit.click();
-		});
+		_jBtn.on('click', (event:Event) -> _jSubmit.click());
 
-		_jSubmit.on({ 'change':onChange });
+		_jSubmit.on({ 'change': onChange });
 
 	}
 
@@ -36,12 +34,11 @@ class Read {
 	========================================================================== */
 	private static function readFile(file:Blob):Void {
 
-		var fileReader : FileReader = new FileReader();
-		fileReader.onload = function(event:Dynamic):Void {
+		var fileReader:FileReader = new FileReader();
+		fileReader.onload = (event:Dynamic) -> {
 
 			cancel(event);
-			var src : String = event.target.result;
-			Main.onRead(src);
+			Main.onRead(event.target.result);
 
 		};
 
@@ -54,7 +51,7 @@ class Read {
 	========================================================================== */
 	private static function onChange(event:Event):Void {
 
-		var file : Blob = untyped event.originalEvent.target.files[0];
+		var file:Blob = untyped event.originalEvent.target.files[0];
 		readFile(file);
 
 	}
@@ -64,7 +61,7 @@ class Read {
 	========================================================================== */
 	private static function onDrop(event:Event):Bool {
 
-		var file : Blob = untyped event.originalEvent.dataTransfer.files[0];
+		var file:Blob = untyped event.originalEvent.dataTransfer.files[0];
 		readFile(file);
 		return false;
 
